@@ -3,6 +3,7 @@
 
 function Drawing(forms){
     this.formList = forms;
+    
 }
 
 function Form(color, stroke){
