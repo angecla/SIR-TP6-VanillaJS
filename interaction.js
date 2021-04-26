@@ -6,12 +6,20 @@ function DnD(canvas, interactor) {
   this.X_initial = 0;
   this.Y_initial = 0
 
-  this.X_inter = 0 ; 
-  this.Y_inter = 0 ;
 
   this.X_final = 0;
   this.Y_final = 0;
 	// Developper les 3 fonctions gérant les événements
+
+  this.mousedown = function (evt) {
+   
+  }
+  this.mousemove = function (evt) {
+   
+  }
+  this.mouseup = function (evt) {
+    
+  }
 
 	// Associer les fonctions précédentes aux évènements du canvas.
 };
