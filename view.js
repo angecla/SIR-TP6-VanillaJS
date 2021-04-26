@@ -6,6 +6,7 @@
     ctx.beginPath();
     ctx.rect(this.X_initial, this.Y_initial, this.X_final, this.Y_final );
     ctx.stroke();
+    console.log("ctx", ctx) ;
   };
   
   Line.prototype.paint = function(ctx) {

@@ -13,27 +13,29 @@ function DnD(canvas, interactor) {
   this.mdown = false ;
 	// Developper les 3 fonctions gérant les événements
 
-  this.mousedown = function (evt) {
+  this.mousedown = function (evt) { 
     if( evt !== undefined){
-      //this.mdown = true ;
+      this.mdown = true ;
+      interactor.onInteractionStart(this); 
       this.X_initial = evt.x ;
       this.Y_initial = evt.y ;
       console.log("getMousePosition",getMousePosition(canvas, evt));
     }
   }
   this.mousemove = function (evt) {
-    if( (evt !== undefined) /* && this.mdown */ ){
+    if( this.mdown ){
+      interactor.onInteractionUpdate(this);
       this.X_inter = evt.x ;
       this.Y_inter = evt.y ;
       console.log("getMousePosition", getMousePosition(canvas, evt));
     }
   }
   this.mouseup = function (evt) {
-    if( evt !== undefined){ 
+    if( evt !== undefined){
+      interactor.onInteractionEnd(this);  
       this.mdown = false ; 
       this.X_final = evt.x ;
       this.Y_final = evt.y ;
-      console.log("evt", evt); 
       console.log("getMousePosition", getMousePosition(canvas, evt) );
     }
   }
