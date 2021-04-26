@@ -35,6 +35,9 @@ function DnD(canvas, interactor) {
   }
 
 	// Associer les fonctions précédentes aux évènements du canvas.
+  canvas.addEventListener("mousedown",this.mousedown(interactor), false);
+  canvas.addEventListener("mousemove",this.mousemove(interactor), false);
+  canvas.addEventListener("mouseup",this.mouseup(interactor), false);
 };
 
 
