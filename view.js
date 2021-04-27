@@ -4,9 +4,15 @@
   Rectangle.prototype.paint = function(ctx) {
     //TODO Manager color
     ctx.beginPath();
+        let width = dnd.X_final - dnd.X_initial   ;
+				let height = dnd.Y_final - dnd.Y_initial   ;
+				 
+				//Définir les dimensions du rectangle
+				if(width < 0 ){ width = -1 * width ;  }
+				if(height < 0 ){ height = -1 * height ;  }
+
     ctx.rect(this.X_initial, this.Y_initial, this.X_final, this.Y_final );
     ctx.stroke();
-    console.log("ctx", ctx) ;
   };
   
   Line.prototype.paint = function(ctx) {
@@ -35,3 +41,6 @@
       eltDuTableau.paint(ctx);
     });
   };
+
+
+
