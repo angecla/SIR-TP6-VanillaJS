@@ -1,61 +1,85 @@
-
-var editingMode = { rect: 0, line: 1 };
+var editingMode = {rect: 0, line: 1};
 
 function Pencil(ctx, drawing, canvas) {
-	this.currEditingMode = editingMode.line;
-	this.currLineWidth = 5;
-	this.currColour = '#000000';
-	this.currentShape = 0;
+    this.currEditingMode = editingMode.line;
+    this.currLineWidth = 5;
+    this.currColour = '#000000';
+    this.currentShape = null;
 
-	// Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
+    // Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
 
-	new DnD(canvas, this);
+    new DnD(canvas, this);
 
-	// Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
-
-	this.onInteractionStart = function (dnd) {
-
+    // Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
+    this.onInteractionStart = function (dnd) {
+        this.defineValues() ;
         switch (this.currEditingMode) {
-            case editingMode.rect:
-				let width = dnd.X_final - dnd.X_initial   ;
-				let height = dnd.Y_final - dnd.Y_initial   ;
+            case editingMode.rect:{
+                let width = dnd.xFinal - dnd.xInit   ;
+				let height = dnd.yFinal - dnd.yInit   ;
 				 
-				//Définir les dimensions du rectangle
-				if(width < 0 ){ width = -1 * width ;  }
-				if(height < 0 ){ height = -1 * height ;  }
-
-                this.currentShape = new Rectangle(dnd.X_initial , dnd.Y_initial, width, height, this.currLineWidth, this.currColour);
-				//this.currentShape = new Rectangle(dnd.X_initial , dnd.Y_initial, dnd.X_final, dnd.Y_final, this.currLineWidth, this.currColour);
-
-				break;
-            case editingMode.line:
-                this.currentShape = new Line(dnd.X_initial, dnd.Y_initial, dnd.X_final, dnd.Y_inal, this.currLineWidth, this.currColour);
+                this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, width, height, this.currColour, this.currLineWidth);
                 break;
+            }
+            case editingMode.line:{ 
+                this.currentShape = new Line(dnd.xInit, dnd.yInit, dnd.xFinal, dnd.yFinal, this.currColour, this.currLineWidth);
+                break;
+            }
         }
     }.bind(this);
 
     this.onInteractionUpdate = function (dnd) {
-            this.currentShape.xFinal = dnd.xFinal;
-            this.currentShape.yFinal = dnd.yFinal;
+        if (this.currentShape !== null) {
+            this.updateDemensions(dnd) ; 
             drawing.paint(ctx);
             this.currentShape.paint(ctx);
-
+        }
+        
     }.bind(this);
 
     this.onInteractionEnd = function (dnd) {
-        console.log(this.currentShape);
-            this.currentShape.xFinal = dnd.xFinal;
-            this.currentShape.yFinal = dnd.yFinal;
+        if (this.currentShape !== null) {
+            this.updateDemensions(dnd) ;
             this.currentShape.paint(ctx);
             drawing.addForm(this.currentShape);
             drawing.paint(ctx);
-       
+        }
+    }.bind(this);
 
+
+    this.defineValues = function(){
+        this.currEditingMode = document.getElementById("butRect").checked ? editingMode.rect : editingMode.line;
+        this.currColour = document.getElementById("colour").value;
+        const stroke =  document.getElementById("spinnerWidth").value; 
+        this.currLineWidth = parseInt(stroke) ;  
     }.bind(this);
 
 
 
+    this.updateDemensions = function(dnd){
+        if (this.currentShape !== null) {
+            switch (this.currEditingMode) {
+                case editingMode.rect:{
+                    let width = dnd.xFinal - dnd.xInit   ;
+                    let height = dnd.yFinal - dnd.yInit   ;
+                
+                    this.currentShape.width = width;
+                    this.currentShape.height = height;
 
-};
+                    break;
+                }
+                case editingMode.line:{
+                    this.currentShape.xEnd = dnd.xFinal;
+                    this.currentShape.yEnd = dnd.yFinal ;
+                    break;
+                }
+            }
+        }
+
+    };
+
+
+
+}
 
 

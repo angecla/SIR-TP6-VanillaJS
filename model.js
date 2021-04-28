@@ -1,36 +1,35 @@
-
 // Implémenter ici les 4 classes du modèle.
 
-function Drawing(forms){
-    this.formList = // forms;
-
-    this.addForm =  function (form){ 
-    this.formList. push(form) ;
-    }.bind(this)
-
-} ;
-
-function Form(color, stroke){
+function Form(color, thickness) {
     this.color = color;
-    this.stroke = stroke;
+    this.thickness = thickness;
 }
-function Rectangle(x, y, width, length, color, stroke){
-    Form.call(this, color, stroke);
+
+function Rectangle(x, y, width, heigth, color, thickness) {
+    Form.call(this, color, thickness);
     this.x = x;
     this.y = y;
     this.width = width;
-    this.length = length;
+    this.heigth = heigth;
 }
 
-function Line(xBegin,yBegin,xEnd,yEnd,color,stroke){
-    Form.call(this, color, stroke);
-    this.X_begin = xBegin;
-    this.Y_begin = yBegin;
-    this.X_end = xEnd;
-    this.Y_end = yEnd;
+function Line(xBegin, yBegin, xEnd, yEnd, color, thickness) {
+    Form.call(this, color, thickness);
+    this.xBegin = xBegin;
+    this.yBegin = yBegin;
+    this.xEnd = xEnd;
+    this.yEnd = yEnd;
 }
 
-// N'oubliez pas l'héritage !
+function Drawing() {
+    this.formList = [];
 
-Rectangle.prototype= new Form();
+    this.addForm = function (formList) {
+        this.formList.push(formList)
+    }.bind(this);
+}
+
+
+//héritage !
+Rectangle.prototype = new Form();
 Line.prototype = new Form();
