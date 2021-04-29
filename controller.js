@@ -5,7 +5,7 @@ function Pencil(ctx, drawing, canvas) {
     this.currLineWidth = 5;
     this.currColour = '#000000';
     this.currentShape = null;
-    this.indexForm = 1 ;
+    this.indexForm = 0 ;
 
     // Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
 
@@ -45,7 +45,8 @@ function Pencil(ctx, drawing, canvas) {
             drawing.addForm(this.currentShape);
             drawing.paint(ctx);
             this.indexForm ++ ;
-            updateShapeList(this.currentShape, this.indexForm ) ;
+            this.currentShape.id = this.indexForm ;
+            updateShapeList(this.currentShape) ;
         }
     }.bind(this);
 
@@ -80,8 +81,6 @@ function Pencil(ctx, drawing, canvas) {
         }
 
     };
-
-
 
 }
 

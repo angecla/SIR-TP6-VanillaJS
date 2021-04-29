@@ -30,11 +30,11 @@ var style = {
                 bkgd:{Rectangle: "darkslategray", Ligne: "brown" },
                 color:{Rectangle: "white", Ligne: "white" },
             }
-function updateShapeList(form , index){
+function updateShapeList(form){
   list = document.getElementById("shapeList") ; 
   
   let li = document.createElement("li");
-  li.textContent = 'Id : '+index+ ', Type : '+form.type+ '' ;
+  li.textContent = 'Id : '+form.id+ ', Type : '+form.type+ '' ;
   li.style.padding = "0px"
   li.style.paddingLeft = "10px" ;
   li.style.paddingRight = "1px" ;
@@ -53,6 +53,18 @@ function updateShapeList(form , index){
   btn.style.height = "21px"
   btn.style.color = "red" ;
   
+  btn.addEventListener("click", ()=> {
+    drawing.removeForm(form);
+    list.innerHTML = "" ;
+    drawing.formList.forEach((val) => {
+        this.updateShapeList(val);
+    }) ;
+    
+  });
+
+
+
+
   btn.appendChild(span) ;
   li.appendChild(btn) ;
 

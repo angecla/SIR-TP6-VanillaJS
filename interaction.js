@@ -10,6 +10,7 @@ function DnD(canvas, interactor) {
     this.xFinal = 0;
     this.yFinal = 0;
     this.mDown = false ;
+    this.mMove = false ;
 
 	// Developper les 3 fonctions gérant les événements
 
@@ -24,6 +25,7 @@ function DnD(canvas, interactor) {
 
   this.mousemove = function (evt) {
     if( this.mDown ){
+      this.mMove = true ;
       const position = getMousePosition(canvas, evt) ;
       this.xFinal = position.x ;
       this.yFinal = position.y ;
@@ -32,8 +34,9 @@ function DnD(canvas, interactor) {
   }.bind(this);
 
   this.mouseup = function (evt) {
-    if( this.mDown ){
+    if( this.mDown && this.mMove ){
       this.mDown = false ; 
+      this.mMove = false ;
       const position = getMousePosition(canvas, evt) ;
       this.xFinal = position.x ;
       this.yFinal = position.y ;

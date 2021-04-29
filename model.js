@@ -1,6 +1,7 @@
 // Implémenter ici les 4 classes du modèle.
 
 function Form(color, thickness) {
+    this.id = 0 ;
     this.color = color;
     this.thickness = thickness;
 }
@@ -28,6 +29,11 @@ function Drawing() {
 
     this.addForm = function (formList) {
         this.formList.push(formList)
+    }.bind(this);
+
+    this.removeForm = function (form) {
+        this.formList =  this.formList.filter( (value)=>{ return  value !== form } );
+        this.paint(ctx);
     }.bind(this);
 }
 
