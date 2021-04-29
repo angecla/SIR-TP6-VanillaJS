@@ -35,10 +35,26 @@ function updateShapeList(form , index){
   
   let li = document.createElement("li");
   li.textContent = 'Id : '+index+ ', Type : '+form.type+ '' ;
-  li.style.paddingLeft = "10px"
+  li.style.padding = "0px"
+  li.style.paddingLeft = "10px" ;
+  li.style.paddingRight = "1px" ;
+  li.style.height = "25px"  ;
   li.style.backgroundColor = style.bkgd[form.type] ;
   li.style.border = "1px solid white" ;
   li.style.color = style.color[form.type] ;
+
+  let btn = document.createElement("button") ; 
+  btn.style.float = "right" ;
+  btn.style.height = "100%" ;
+  btn.className = "btn btn-default" ;
+
+  let span = document.createElement("span") ; 
+  btn.className = "glyphicon glyphicon-remove-sign" ;
+  btn.style.height = "21px"
+  btn.style.color = "red" ;
+  
+  btn.appendChild(span) ;
+  li.appendChild(btn) ;
 
   list.appendChild(li)
 
