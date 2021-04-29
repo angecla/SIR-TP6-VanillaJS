@@ -26,4 +26,22 @@ Drawing.prototype.paint = function (ctx) {
     });
 }
 
+var style = {
+                bkgd:{Rectangle: "darkslategray", Ligne: "brown" },
+                color:{Rectangle: "white", Ligne: "white" },
+            }
+function updateShapeList(form , index){
+  list = document.getElementById("shapeList") ; 
+  
+  let li = document.createElement("li");
+  li.textContent = 'Id : '+index+ ', Type : '+form.type+ '' ;
+  li.style.paddingLeft = "10px"
+  li.style.backgroundColor = style.bkgd[form.type] ;
+  li.style.border = "1px solid white" ;
+  li.style.color = style.color[form.type] ;
+
+  list.appendChild(li)
+
+}
+
 

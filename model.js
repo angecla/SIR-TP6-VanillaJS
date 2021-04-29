@@ -11,6 +11,7 @@ function Rectangle(x, y, width, heigth, color, thickness) {
     this.y = y;
     this.width = width;
     this.heigth = heigth;
+    this.type = "Rectangle" ;
 }
 
 function Line(xBegin, yBegin, xEnd, yEnd, color, thickness) {
@@ -19,6 +20,7 @@ function Line(xBegin, yBegin, xEnd, yEnd, color, thickness) {
     this.yBegin = yBegin;
     this.xEnd = xEnd;
     this.yEnd = yEnd;
+    this.type = "Ligne" ;
 }
 
 function Drawing() {
