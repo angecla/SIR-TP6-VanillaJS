@@ -1,4 +1,4 @@
-var editingMode = {rect: 0, line: 1};
+var editingMode = {line: 0,rect: 1,  circle:2, ellipse:3};
 
 function Pencil(ctx, drawing, canvas) {
     this.currEditingMode = editingMode.line;
@@ -16,14 +16,31 @@ function Pencil(ctx, drawing, canvas) {
         this.defineValues() ;
         switch (this.currEditingMode) {
             case editingMode.rect:{
-                let width = dnd.xFinal - dnd.xInit   ;
-				let height = dnd.yFinal - dnd.yInit   ;
+                const width = dnd.xFinal - dnd.xInit   ;
+				const height = dnd.yFinal - dnd.yInit   ;
 				 
                 this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, width, height, this.currColour, this.currLineWidth);
                 break;
             }
             case editingMode.line:{ 
                 this.currentShape = new Line(dnd.xInit, dnd.yInit, dnd.xFinal, dnd.yFinal, this.currColour, this.currLineWidth);
+                break;
+            }
+            case editingMode.circle:{ 
+
+                const radiusX = dnd.xFinal - dnd.xInit   ;
+				const radiusY = dnd.yFinal - dnd.yInit   ;
+                const radius =  Math.sqrt( Math.pow(radiusX, 2)  +  Math.pow(radiusY, 2) ) ;
+
+                this.currentShape = new Circle(dnd.xInit, dnd.yInit, radius, 0 , this.currColour, this.currLineWidth);
+                break;
+            }
+            case editingMode.ellipse:{ 
+
+                const radiusX = dnd.xFinal - dnd.xInit   ;
+				const radiusY = dnd.yFinal - dnd.yInit   ;
+
+                this.currentShape = new Ellipse(dnd.xInit, dnd.yInit, radiusX, radiusY , this.currColour, this.currLineWidth);
                 break;
             }
         }
@@ -52,7 +69,11 @@ function Pencil(ctx, drawing, canvas) {
 
 
     this.defineValues = function(){
-        this.currEditingMode = document.getElementById("butRect").checked ? editingMode.rect : editingMode.line;
+        if( document.getElementById("butLine").checked ){ this.currEditingMode = 0;  }
+        else if(document.getElementById("butRect").checked ){  this.currEditingMode = 1; }
+        else if(document.getElementById("butCircle").checked ){ this.currEditingMode = 2; } 
+        else if(document.getElementById("butEllipse").checked ){ this.currEditingMode = 3; }
+
         this.currColour = document.getElementById("colour").value;
         const stroke =  document.getElementById("spinnerWidth").value; 
         this.currLineWidth = parseInt(stroke) ;  
@@ -75,6 +96,23 @@ function Pencil(ctx, drawing, canvas) {
                 case editingMode.line:{
                     this.currentShape.xEnd = dnd.xFinal;
                     this.currentShape.yEnd = dnd.yFinal ;
+                    break;
+                }
+
+                case editingMode.circle:{
+                    const radiusX = dnd.xFinal - dnd.xInit   ;
+				    const radiusY = dnd.yFinal - dnd.yInit   ;
+                    this.currentShape.radius =  Math.sqrt( Math.pow(radiusX, 2)  +  Math.pow(radiusY, 2) ) ;
+                    break;
+                }
+                case editingMode.ellipse:{
+                    let radiusX = dnd.xFinal - dnd.xInit   ;
+				    let radiusY = dnd.yFinal - dnd.yInit   ;
+                    if(radiusX < 0) {radiusX = -1* radiusX }
+                    if(radiusY < 0) {radiusY = -1* radiusY }
+
+                    this.currentShape.radiusX =  radiusX;
+                    this.currentShape.radiusY =  radiusY;
                     break;
                 }
             }

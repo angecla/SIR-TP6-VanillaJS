@@ -17,6 +17,21 @@ Line.prototype.paint = function (ctx) {
     ctx.stroke();
 };
 
+Circle.prototype.paint = function (ctx) {
+    ctx.beginPath();
+    ctx.lineWidth = this.thickness;
+    ctx.strokeStyle = this.color;
+    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+    ctx.stroke();
+};
+
+Ellipse.prototype.paint = function (ctx) {
+    ctx.beginPath();
+    ctx.lineWidth = this.thickness;
+    ctx.strokeStyle = this.color;
+    ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 45 * Math.PI / 180, 0, 2 * Math.PI);
+    ctx.stroke();
+};
 
 Drawing.prototype.paint = function (ctx) {
     ctx.fillStyle = '#F0F0F0'; // set canvas' background color
@@ -27,8 +42,8 @@ Drawing.prototype.paint = function (ctx) {
 }
 
 var style = {
-                bkgd:{Rectangle: "darkslategray", Ligne: "brown" },
-                color:{Rectangle: "white", Ligne: "white" },
+                bkgd:{Rectangle: "darkslategray", Ligne: "brown", Circle:"orange" , Ellipse : "blue" },
+                color:{Rectangle: "white", Ligne: "white", Circle: "black", Ellipse : "white"},
             }
 function updateShapeList(form){
   list = document.getElementById("shapeList") ; 

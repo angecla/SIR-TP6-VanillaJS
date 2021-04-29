@@ -24,6 +24,25 @@ function Line(xBegin, yBegin, xEnd, yEnd, color, thickness) {
     this.type = "Ligne" ;
 }
 
+function Circle(centerX, centerY, radius, angle,  color,thickness) {
+    this.type = "Circle";
+    Form.call(this, color, thickness);
+    this.x = centerX;
+    this.y = centerY;
+    this.radius = radius;
+    this.angle = angle;
+}
+
+
+function Ellipse(x, y, radiusX, radiusY, color, thickness) {
+    this.type = "Ellipse";
+    Form.call(this, color, thickness);
+    this.x = x;
+    this.y = y;
+    this.radiusX = radiusX;
+    this.radiusY = radiusY;
+}
+
 function Drawing() {
     this.formList = [];
 
@@ -41,3 +60,6 @@ function Drawing() {
 //héritage !
 Rectangle.prototype = new Form();
 Line.prototype = new Form();
+Circle.prototype = new Form();
+Ellipse.prototype = new Form();
+
