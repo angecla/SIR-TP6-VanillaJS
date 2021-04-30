@@ -4,7 +4,7 @@ Voir l'énnoncé du TP via [ce lien](https://docs.google.com/document/d/1bgGhG9Z
 
 
 ## Comment utiliser l'application
-- Cloner 
+- Cloner le projet
 - Ouvrir le fichier `canvas.html` dans un navigateur
 - Commencer à dessiner selon les paramètres choisis dans le menu du haut. 
 
